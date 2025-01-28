@@ -1,24 +1,24 @@
-const Header = (props) => {
+const Header = ({course}) => {
   /* Render the name of the course */
   return (
-      <h1>{props.course}</h1>
+      <h1>{course}</h1>
   );
 }
 
 
-const Part = (props) => {
+const Part = ({ part }) => {
   /* Renders the individual parts */
   return (
     <p>
-        {props.part.name} {props.part.exercises}
+        {part.name} {part.exercises}
     </p>
   );
 }
 
 
-const Content = (props) => {
+const Content = ({parts}) => {
   /* Render the parts and number of exercises in the course */
-  let toRender = props.parts.map((part, idx) => <Part part={part} key={idx} />)
+  let toRender = parts.map((part, idx) => <Part part={part} key={idx} />)
   return (
     <>
       { toRender }
@@ -27,10 +27,10 @@ const Content = (props) => {
 }
 
 
-const Total = (props) => {
+const Total = ({parts}) => {
   /* Render the total number of exercises in the course */
   let sum = 0;
-  props.parts.forEach(part => {
+  parts.forEach(part => {
     sum += part.exercises;
   });
   return (
