@@ -44,9 +44,6 @@ const App = () => {
   const [allClicks, setAll] = useState([]);  // keep track of all the clicks that have happened
   const [total, setTotal] = useState(0);  // keep track of total number of button presses
 
-  const increaseByOne = () => setCounter(counter+1);
-
-  const decreaseByOne = () => setCounter(counter-1);
 
   const handleLeftClick = () => {
     console.log("Left before:", clicks.left);
@@ -63,14 +60,15 @@ const App = () => {
     setTotal(total+1);
   };
 
-  const setToZero = () => setCounter(0);
+  const setToValue = (newValue) => () => setCounter(newValue);
 
   return (
     <div>
       <Display counter={counter} />
-      <Button onClick={increaseByOne} text="plus" />
-      <Button onClick={setToZero} text="zero" />
-      <Button onClick={decreaseByOne} text="minus" />
+      <Button onClick={setToValue(counter+1)} text="plus" />
+      <Button onClick={setToValue(1000)} text="thousand" />
+      <Button onClick={setToValue(0)} text="zero" />
+      <Button onClick={setToValue(counter-1)} text="minus" />
       <br />
       <Button onClick={handleLeftClick} text="left" />
       <Button onClick={handleRightClick} text="right" />
