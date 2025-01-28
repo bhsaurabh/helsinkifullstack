@@ -1,9 +1,12 @@
-const Hello = (props) => {
+const Hello = ({ name, age }) => {
   console.log("<Hello>");
+
+  const birthYear = () => new Date().getFullYear() - age
+
   return (
     <div id="hello">
-      <p>Hello { props.name1 } and { props.name2 }.</p>
-      <p>Together you are the { props.collection }.</p>
+      <p>Hello { name }. You are {age} years old.</p>
+      <p>You were probably born in {birthYear()}.</p>
     </div>
   );
 }
@@ -17,7 +20,7 @@ const App = () => {
   console.log("<App>")
   return (
       <div>
-        <Hello name1="Saurabh" name2="Lucy" collection="poepies" />
+        <Hello name="Saurabh" age={32} />
         <p>Greetings It is now { now.toString() }</p>
         <p>a is { a }, b is { b } and their sum is { a+b }</p>
       </div>
