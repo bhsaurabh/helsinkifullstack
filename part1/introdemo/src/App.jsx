@@ -1,30 +1,23 @@
-const Hello = ({ name, age }) => {
-  console.log("<Hello>");
-
-  const birthYear = () => new Date().getFullYear() - age
-
-  return (
-    <div id="hello">
-      <p>Hello { name }. You are {age} years old.</p>
-      <p>You were probably born in {birthYear()}.</p>
-    </div>
-  );
-}
-
+import { useState } from 'react'
 
 
 const App = () => {
-  const now = new Date();
-  const a = 5;
-  const b = 10;
-  console.log("<App>")
+  // useState creates the state, and returns current state and method to change state
+  // method to adapt state will re-render the component since state is changed.
+  const [counter, setCounter] = useState(0);
+
+  const increaseByOne = () => setCounter(counter+1);
+
+  const setToZero = () => setCounter(0);
+
   return (
-      <div>
-        <Hello name="Saurabh" age={32} />
-        <p>Greetings It is now { now.toString() }</p>
-        <p>a is { a }, b is { b } and their sum is { a+b }</p>
-      </div>
-    );
+    <div>
+      <div>{counter}</div>
+      <button onClick={ increaseByOne }>plus</button>
+      <button onClick={ setToZero }>zero</button>
+    </div>
+  );
+
 }
 
 
