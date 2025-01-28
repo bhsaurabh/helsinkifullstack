@@ -19,7 +19,7 @@ const Button = ({onClick, text}) => {
 const App = () => {
   // useState creates the state, and returns current state and method to change state
   // method to adapt state will re-render the component since state is changed.
-  const [counter, setCounter] = useState(0);
+  const [counter, setCounter] = useState(0);  // 0 is the default value of state passed to be assigned.
 
   const increaseByOne = () => setCounter(counter+1);
 
