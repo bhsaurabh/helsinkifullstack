@@ -22,20 +22,25 @@ const App = () => {
   const [counter, setCounter] = useState(0);  // 0 is the default value of state passed to be assigned.
   const [clicks, setClicks] = useState( { left: 0, right: 0} );  // a more complex initial state
   const [allClicks, setAll] = useState([]);  // keep track of all the clicks that have happened
+  const [total, setTotal] = useState(0);  // keep track of total number of button presses
 
   const increaseByOne = () => setCounter(counter+1);
 
   const decreaseByOne = () => setCounter(counter-1);
 
   const handleLeftClick = () => {
-    setClicks({ ...clicks, left: clicks.left+1 })
+    console.log("Left before:", clicks.left);
+    setClicks({ ...clicks, left: clicks.left+1 });
+    console.log("Left after:", clicks.left);
     setAll([...allClicks, "L"]);  // could also use allClicks.concat('L')
-    console.log(allClicks);
+    setTotal(total+1);
   };
   const handleRightClick = () => {
-    setClicks({ ...clicks, right: clicks.right+1 })
+    console.log("Right before:", clicks.right);
+    setClicks({ ...clicks, right: clicks.right+1 });
+    console.log("Right after:", clicks.right);
     setAll([...allClicks, "R"]);  // could also use allClicks.concat('R')
-    console.log(allClicks);
+    setTotal(total+1);
   };
 
   const setToZero = () => setCounter(0);
@@ -51,8 +56,9 @@ const App = () => {
       <Button onClick={handleRightClick} text="right" />
       <Display counter={clicks.left} />
       <Display counter={clicks.right} />
-      Displaying all clicks:
+      <p>Displaying all clicks:</p>
       <p>{ allClicks.join(', ') }</p>
+      <p>Total number of clicks: {total}</p>
     </div>
   );
 
