@@ -26,8 +26,8 @@ const App = () => {
 
   const decreaseByOne = () => setCounter(counter-1);
 
-  const handleLeftClick = () => setClicks({ left: clicks.left+1, right: clicks.right });
-  const handleRightClick = () => setClicks({ left: clicks.left, right: clicks.right+1 });
+  const handleLeftClick = () => setClicks({ ...clicks, left: clicks.left+1 });
+  const handleRightClick = () => setClicks({ ...clicks, right: clicks.right+1 });
 
   const setToZero = () => setCounter(0);
 
