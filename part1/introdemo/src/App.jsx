@@ -30,6 +30,10 @@ const History = (props) => {
   }
 }
 
+// function that returns a function to assign to event handler
+// this defines a generic ability that can be parametrized
+const hello = (who) => () => console.log("Hello! Counter is:", who);
+
 
 
 const App = () => {
@@ -74,6 +78,7 @@ const App = () => {
       <Display counter={clicks.right} />
       <History allClicks={allClicks} />
       <p>Total number of clicks: {total}</p>
+      <Button onClick={hello(counter)} text="Console logger" />
     </div>
   );
 
