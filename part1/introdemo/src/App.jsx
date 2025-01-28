@@ -30,10 +30,6 @@ const History = (props) => {
   }
 }
 
-// function that returns a function to assign to event handler
-// this defines a generic ability that can be parametrized
-const hello = (who) => () => console.log("Hello! Counter is:", who);
-
 
 
 const App = () => {
@@ -43,6 +39,10 @@ const App = () => {
   const [clicks, setClicks] = useState( { left: 0, right: 0} );  // a more complex initial state
   const [allClicks, setAll] = useState([]);  // keep track of all the clicks that have happened
   const [total, setTotal] = useState(0);  // keep track of total number of button presses
+
+  // function that returns a function to assign to event handler
+  // this defines a generic ability that can be parametrized
+  const hello = (who) => () => console.log("Hello! Counter is:", who);
 
 
   const handleLeftClick = () => {
