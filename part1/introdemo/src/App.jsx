@@ -15,6 +15,22 @@ const Button = ({onClick, text}) => {
 }
 
 
+const History = (props) => {
+  if (props.allClicks.length == 0) {
+    return (
+      <div>the app is used by pressing the buttons</div>
+    )
+  } else {
+    return (
+        <div>
+          <p>Displaying all clicks:</p>
+          <p>{ props.allClicks.join(', ') }</p>
+        </div>
+        )
+  }
+}
+
+
 
 const App = () => {
   // useState creates the state, and returns current state and method to change state
@@ -56,8 +72,7 @@ const App = () => {
       <Button onClick={handleRightClick} text="right" />
       <Display counter={clicks.left} />
       <Display counter={clicks.right} />
-      <p>Displaying all clicks:</p>
-      <p>{ allClicks.join(', ') }</p>
+      <History allClicks={allClicks} />
       <p>Total number of clicks: {total}</p>
     </div>
   );
