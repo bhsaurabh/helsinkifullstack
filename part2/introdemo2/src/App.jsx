@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import axios from 'axios'
+import notesService from './services/notes'
 import Note from './components/Note'
 
 
@@ -10,11 +10,8 @@ const App = () => {
   const notesToShow = showAll ? notes : notes.filter(note => note.important)
 
   const hook = () => {
-    console.log('effect');
-    const promise = axios.get('http://localhost:3001/notes')
-    promise.then(response => {
-      console.log('promise fulfilled');
-      setNotes(response.data)
+    notesService.getAll().then(initialNotes => { 
+      setNotes(initialNotes)
     })
   }
 
@@ -29,12 +26,10 @@ const App = () => {
       date: new Date().toISOString(),
       important: Math.random() < 0.5,
     }
-    axios.post('http://localhost:3001/notes', noteObject).then(
-      response => {
-        setNotes([...notes, response.data])
-        setNewNote('')  // clear the input field
-      }
-    )
+    notesService.create(noteObject).then(returnedNote => {
+      setNotes(notes.concat(returnedNote))
+      setNewNote('')  // clear the input field
+    })
   }
 
   const handleNoteChange = (event) => {
@@ -45,8 +40,8 @@ const App = () => {
     const note = notes.find(n => n.id === id)
     const changedNote = {...note, important: !note.important}
 
-    axios.put(`http://localhost:3001/notes/${id}`, changedNote).then(response => {
-      setNotes(notes.map(n => n.id !== id ? n : response.data))  // update the changed note in the state
+    notesService.update(id, changedNote).then(returnedNote => {
+      setNotes(notes.map(n => n.id !== id ? n : returnedNote))  // update the changed note in the state
     })
   }
 
