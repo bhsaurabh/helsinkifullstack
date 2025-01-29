@@ -28,10 +28,13 @@ const App = () => {
       content: newNote,
       date: new Date().toISOString(),
       important: Math.random() < 0.5,
-      id: notes.length + 1
     }
-    setNotes([...notes, noteObject])
-    setNewNote('')  // clear the input field
+    axios.post('http://localhost:3001/notes', noteObject).then(
+      response => {
+        setNotes([...notes, response.data])
+        setNewNote('')  // clear the input field
+      }
+    )
   }
 
   const handleNoteChange = (event) => {
