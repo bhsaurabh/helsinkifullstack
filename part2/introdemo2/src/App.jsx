@@ -1,12 +1,26 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import axios from 'axios'
 import Note from './components/Note'
 
 
-const App = (props) => {
-  const [notes, setNotes] = useState(props.notes)
+const App = () => {
+  const [notes, setNotes] = useState([])
   const [newNote, setNewNote] = useState('')  // store user input in newNote
   const [showAll, setShowAll] = useState(true)  // show all notes or only important notes
   const notesToShow = showAll ? notes : notes.filter(note => note.important)
+
+  const hook = () => {
+    console.log('effect');
+    const promise = axios.get('http://localhost:3001/notes')
+    promise.then(response => {
+      console.log('promise fulfilled');
+      setNotes(response.data)
+    })
+  }
+
+  useEffect(hook, [])  // hook is called when the component is rendered first time ([])
+
+  console.log('render', notes.length, 'notes')
 
   const addNote = (event) => {
     event.preventDefault()
