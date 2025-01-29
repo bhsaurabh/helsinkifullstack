@@ -1,7 +1,14 @@
+import { useState } from 'react'
 import Note from './components/Note'
 
 
-const App = ({notes}) => {
+const App = (props) => {
+  const [notes, setNotes] = useState(props.notes)
+
+  const addNote = (event) => {
+    event.preventDefault()
+    console.log('button clicked', event.target)
+  }
 
   return (
     <div>
@@ -9,6 +16,11 @@ const App = ({notes}) => {
       <ul>
         { notes.map(note => <Note note={note} key={note.id} />) }
       </ul>
+      {/* form to add a new note */ }
+      <form onSubmit={addNote}>
+        <input />
+        <button type="submit">save</button>
+      </form>
     </div>
   )
 }
