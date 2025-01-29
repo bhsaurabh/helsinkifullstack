@@ -21,6 +21,8 @@ const App = (props) => {
         <input />
         <button type="submit">save</button>
       </form>
+      {/* display the number of notes */}
+      <p>Number of notes: {notes.length}</p>
     </div>
   )
 }
