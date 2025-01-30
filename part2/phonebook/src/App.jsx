@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import axios from 'axios'
 import Button from './components/Button'
 import InputPerson from './components/InputPerson'
 import SearchPerson from './components/SearchPerson'
@@ -6,15 +7,21 @@ import ListPersons from './components/ListPersons'
 
 
 const App = () => {
-  const [persons, setPersons] = useState([
-    { name: 'Arto Hellas', number: '040-123456', id: 1 },
-    { name: 'Ada Lovelace', number: '39-44-5323523', id: 2 },
-    { name: 'Dan Abramov', number: '12-43-234345', id: 3 },
-    { name: 'Mary Poppendieck', number: '39-23-6423122', id: 4 }
-  ])
+  const [persons, setPersons] = useState([])
   const [newName, setNewName] = useState('')  // newName is the state variable that holds the value of the new name input field
   const [newPhone, setNewPhone] = useState('')  // newPhone is the state variable that holds the value of the new phone input field
   const [searchName, setSearchName] = useState('')  // searchName is the state variable that holds the value of the search name input field
+
+  useEffect(() => {
+    axios
+      .get('http://localhost:3001/persons')
+      .then(response => {
+        setPersons(response.data)
+      })
+      .catch(error => {
+        alert('error fetching persons')
+      })
+  }, [])
 
   const personsToShow = persons.filter(person => {
     if (searchName === '') {
