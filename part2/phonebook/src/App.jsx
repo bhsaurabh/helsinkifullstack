@@ -4,7 +4,7 @@ import Button from './components/Button'
 import InputPerson from './components/InputPerson'
 import SearchPerson from './components/SearchPerson'
 import ListPersons from './components/ListPersons'
-
+import personsService from './services/persons'
 
 const App = () => {
   const [persons, setPersons] = useState([])
@@ -13,12 +13,13 @@ const App = () => {
   const [searchName, setSearchName] = useState('')  // searchName is the state variable that holds the value of the search name input field
 
   useEffect(() => {
-    axios
-      .get('http://localhost:3001/persons')
-      .then(response => {
-        setPersons(response.data)
+    personsService
+      .getAll()
+      .then(personsData => {
+        setPersons(personsData)
       })
       .catch(error => {
+        console.log(error)
         alert('error fetching persons')
       })
   }, [])
@@ -43,16 +44,18 @@ const App = () => {
       name: newName,
       phone: newPhone
     }
-    axios
-      .post('http://localhost:3001/persons', personObject)
-      .then(response => {
-        setPersons(persons.concat(response.data))
+    personsService
+      .create(personObject)
+      .then(createdPerson => {
+        setPersons(persons.concat(createdPerson))
+        setNewName('')
+        setNewPhone('')
       })
       .catch(error => {
+        console.log(error)
         alert('error adding person')
       })
-    setNewName('')
-    setNewPhone('')
+
   }
 
   const handleInputNameChange = (event) => {
