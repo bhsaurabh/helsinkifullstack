@@ -16,8 +16,5 @@ const update = (id, newObject) => {
   return request.then(response => response.data)
 }
 
-export default { 
-  getAll: getAll, 
-  create: create, 
-  update: update 
-}
+// export the above functions in an object using the ES6 syntax
+export default { getAll, create, update }
