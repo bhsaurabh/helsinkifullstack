@@ -33,6 +33,10 @@ const App = () => {
 
   const handleAddPersonSubmit = (event) => {
     event.preventDefault()  // prevent refreshing the page
+    if (newName === '') {
+      alert('name is required')
+      return
+    }
     // find if the person already exists
     const personExists = persons.find(person => person.name === newName)
     if (personExists) {
@@ -86,7 +90,7 @@ const App = () => {
         </div>
       </form>
       {/* display the contents of the phonebook */}
-      <ListPersons personsToShow={personsToShow} />
+      <ListPersons personsToShow={personsToShow} persons={persons} setPersons={setPersons} />
     </div>
   )
 }
