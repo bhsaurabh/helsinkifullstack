@@ -45,6 +45,9 @@ const App = () => {
           .update(personExists.id, { ...personExists, phone: newPhone })
           .then(updatedPerson => {
             setPersons(persons.map(p => p.id === updatedPerson.id ? updatedPerson : p))
+            // clear the newName and newPhone input fields
+            setNewName('')
+            setNewPhone('')
           })
           .catch(error => {
             console.log(error)
