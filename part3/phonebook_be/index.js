@@ -27,12 +27,13 @@ let persons = [
 ]
 
 app.get('/', (request, response) => {
+    console.log("returning / data: simple hello_world message")
     response.send('<h1>Hello World!</h1>')
 })
 
 app.get('/info', (request, response) => {
     // show number of persons in phonebook along with date/time of request receipt
-    console.log("returning /info data")
+    console.log("returning /info data: summary on phonebook data")
     let numPersons = persons.length
     const now = new Date().toString()
     response.send(
@@ -45,6 +46,7 @@ app.get('/info', (request, response) => {
 
 app.get('/api/persons', (request, response) => {
     // return all persons
+    console.log("returning /api/persons data: all persons")
     response.json(persons)
 })
 
