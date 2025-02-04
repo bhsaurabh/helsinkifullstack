@@ -4,24 +4,24 @@ const app = express()
 
 // test data to be read from/written to DB later.
 let persons = [
-    { 
+    {
       "id": "1",
-      "name": "Arto Hellas", 
+      "name": "Arto Hellas",
       "number": "040-123456"
     },
-    { 
+    {
       "id": "2",
-      "name": "Ada Lovelace", 
+      "name": "Ada Lovelace",
       "number": "39-44-5323523"
     },
-    { 
+    {
       "id": "3",
-      "name": "Dan Abramov", 
+      "name": "Dan Abramov",
       "number": "12-43-234345"
     },
-    { 
+    {
       "id": "4",
-      "name": "Mary Poppendieck", 
+      "name": "Mary Poppendieck",
       "number": "39-23-6423122"
     }
 ]
@@ -48,6 +48,22 @@ app.get('/api/persons', (request, response) => {
     // return all persons
     console.log("returning /api/persons data: all persons")
     response.json(persons)
+})
+
+app.get('/api/persons/:id', (request, response) => {
+    // return a specific person
+    const id = request.params.id
+    const person = persons.find(p => p.id === id)
+    console.log("returning info for", id, person)
+
+    // deal with person not existing!
+    if (person) {
+        console.log(">> person exists")
+        response.json(person)
+    } else {
+        console.log(">> person does NOT exist")
+        response.status(404).end()
+    }
 })
 
 const PORT = 3001
