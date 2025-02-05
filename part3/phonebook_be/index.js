@@ -1,6 +1,6 @@
 const express = require('express')
 const app = express()
-app.use(express.json())
+app.use(express.json())  // json-parser middleware to read request, and populate request.body
 
 
 // test data to be read from/written to DB later.
@@ -26,6 +26,22 @@ let persons = [
       "number": "39-23-6423122"
     }
 ]
+
+const requestLogger = (request, response, next) => {
+    // middleware to log every request
+    console.log('Method:', request.method)
+    console.log('Path:', request.path)
+    console.log('Body:', request.body)
+    console.log('---')
+    next()
+}
+app.use(requestLogger)
+
+const unknownEndpoint = (request, response) => {
+    response.status(404).send({ error: 'unknown endpoint' })
+}
+app.use(unknownEndpoint)
+
 
 app.get('/', (request, response) => {
     console.log("returning / data: simple hello_world message")
