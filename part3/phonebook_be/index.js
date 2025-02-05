@@ -1,5 +1,6 @@
 const express = require('express')
 const app = express()
+app.use(express.json())
 
 
 // test data to be read from/written to DB later.
@@ -76,6 +77,32 @@ app.delete('/api/persons/:id', (request, response) => {
     console.log("deleting id", id)
     persons = persons.filter(p => p.id !== id)
     response.status(204).end()
+})
+
+app.post('/api/persons', (request, response) => {
+    const body = request.body
+    if (!body.name && !body.number) {
+        // no name and number specified, error our
+        console.log("NOT creating a new person, no name or number:", body)
+        return response.status(400).json({
+            error: 'name or number missing' 
+        })
+    }
+    if (persons.find(p => p.name.toLowerCase() === body.name.toLowerCase())) {
+        // name already exists, not re-creating.
+        console.log("NOT creating a new person, name already exists", body)
+        return response.status(400).json({
+            error: 'person with same name exists in phonebook' 
+        })
+    }
+    const person = {
+        name: body.name,
+        number: body.number,
+        id: Math.floor(Math.random() * 10000)
+    }
+    console.log("creating a new person:", person)
+    persons = [...persons, person]
+    response.json(person)
 })
 
 const PORT = 3001
