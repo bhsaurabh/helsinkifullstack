@@ -1,8 +1,10 @@
 const express = require('express')
 const morgan = require('morgan')
+const cors = require('cors')
 const app = express()
 app.use(express.json())  // json-parser middleware to read request, and populate request.body
 app.use(morgan('tiny'))
+app.use(cors())
 
 
 // test data to be read from/written to DB later.
