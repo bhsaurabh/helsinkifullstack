@@ -37,12 +37,7 @@ const requestLogger = (request, response, next) => {
     console.log('---')
     next()
 }
-//app.use(requestLogger)
-
-const unknownEndpoint = (request, response) => {
-    response.status(404).send({ error: 'unknown endpoint' })
-}
-app.use(unknownEndpoint)
+app.use(requestLogger)
 
 
 app.get('/', (request, response) => {
@@ -122,6 +117,12 @@ app.post('/api/persons', (request, response) => {
     persons = [...persons, person]
     response.json(person)
 })
+
+
+const unknownEndpoint = (request, response) => {
+    response.status(404).send({ error: 'unknown endpoint' })
+}
+app.use(unknownEndpoint)
 
 const PORT = 3001
 app.listen(PORT, () => {
