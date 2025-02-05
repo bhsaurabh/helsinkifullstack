@@ -1,6 +1,8 @@
 const express = require('express')
+const morgan = require('morgan')
 const app = express()
 app.use(express.json())  // json-parser middleware to read request, and populate request.body
+app.use(morgan('tiny'))
 
 
 // test data to be read from/written to DB later.
@@ -35,7 +37,7 @@ const requestLogger = (request, response, next) => {
     console.log('---')
     next()
 }
-app.use(requestLogger)
+//app.use(requestLogger)
 
 const unknownEndpoint = (request, response) => {
     response.status(404).send({ error: 'unknown endpoint' })
