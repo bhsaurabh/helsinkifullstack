@@ -1,11 +1,24 @@
 const express = require('express')
 const morgan = require('morgan')
 const cors = require('cors')
+const mongoose = require('mongoose')
 const app = express()
 app.use(express.json())  // json-parser middleware to read request, and populate request.body
 app.use(morgan('tiny'))
 app.use(cors())
 
+
+// mongoose config
+const password = process.argv[2]
+const url = `mongodb+srv://fullstack:${password}@fsdev.t0c97.mongodb.net/phonebook?retryWrites=true&w=majority&appName=FSDev`
+mongoose.set('strictQuery', false)
+mongoose.connect(url)
+
+const personSchema = new mongoose.Schema({
+    name: String,
+    number: Number,
+})
+const Person = mongoose.model('Person', personSchema)
 
 // test data to be read from/written to DB later.
 let persons = [
