@@ -13,6 +13,7 @@ const url = `mongodb+srv://fullstack:${password}@fsdev.t0c97.mongodb.net/phonebo
 mongoose.set('strictQuery', false)
 mongoose.connect(url)
 
+
 const personSchema = new mongoose.Schema({
     name: String,
     number: Number,
@@ -20,6 +21,7 @@ const personSchema = new mongoose.Schema({
 
 const Person = mongoose.model('Person', personSchema)
 
+/*
 const person = new Person({
     name: 'Tester Bester',
     number: 123
@@ -27,5 +29,15 @@ const person = new Person({
 
 person.save().then(result => {
     console.log('person saved', person)
+    mongoose.connection.close()
+})
+*/
+
+// fetching persons from the DB
+Person.find({name: 'Tester Bester'}).then(results => {
+    // results is an array of Person
+    results.forEach(person => {
+        console.log(person)
+    })
     mongoose.connection.close()
 })
